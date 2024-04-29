@@ -19,6 +19,10 @@ class FileProcessor {
     // ; and , are used as delimiters
     async parseContent() {
         const lines = this.content.split('\n');
+        // remove \r
+        lines.forEach((line, index) => {
+            lines[index] = line.replace('\r', '');
+        });
         const headers = lines[0].split(/;|,/);
         const data = [];
 
