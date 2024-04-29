@@ -9,6 +9,9 @@
 <body>
     <div class="container">
         <!-- on click press fileInput click -->
+        <div class="button-container">
+
+
         <button class="upload-btn" onclick="pressFileInput()">
             Select Files
         </button>
@@ -16,9 +19,31 @@
         <input id="fileInput" type="file" name="files[]" multiple
             accept=".csv" style="display: none;"/
         >
-        <button type="submit" onclick="processFiles()" name="submit">Process</button>
-        <div id="toc"></div>
+        <div style="width: 0.5rem"></div>
+        <button disabled  id="process-btn" class="process-btn disabled" type="submit" onclick="processFiles()" name="submit">Process</button>
+        </div>
+        <div id="toc">
+
+            <div style="max-width: 30rem; margin-left: 1rem">
+            <p><strong>How To Use?</strong></p>
+            <p>
+                Just click on "Select Files" and select the files you want to process.
+                Then click on "Process" and wait for the files to be processed.
+                Then you can view and download the processed files.
+            </p>
+        </div>
+
+        </div>
     </div>
+
+    <div id="busyIndicator" class="busyIndicator busyIndicator_Disable">
+        <div class="busyIndicatorContent">
+            <span class="loader"></span>
+        </div>
+    </div>
+
+
+
     <script src="src/main.js"></script>
 </body>
 </html>

@@ -46,7 +46,7 @@ class FileProcessor {
         this.createMaxFromD1AndD2();
         this.removeValuesUnder30();
         this.sortValuesAscending();
-        console.log('Processing file:', this.file);
+
     }
 
     removeValuesUnder30() {
@@ -88,12 +88,6 @@ class FileProcessor {
             return this.parseNumberValue(a['Max[D1/D2]']) - this.parseNumberValue(b['Max[D1/D2]']);
         });
 
-        console.log('Values sorted:', this.parsedContent);
-
-
-
-
-
     }
 
     getFileName() {
@@ -127,8 +121,8 @@ class FileProcessor {
         loadMoreButton.textContent += ' (' + shownRows + '/' + (this.parsedContent.length - rows) + ')';
 
 
-        loadMoreButton.addEventListener('click', () => {
-            for (let i = 0; i < 10; i++) {
+        var loadMore = (howMany) => {
+            for (let i = 0; i < howMany; i++) {
                 if (rows < this.parsedContent.length) {
                     var obj = this.parsedContent[rows];
                     var row = document.createElement('tr');
@@ -141,13 +135,24 @@ class FileProcessor {
                     rows++;
                 }
             }
-            shownRows += 10;
+            shownRows += howMany;
+            if (rows >= this.parsedContent.length) {
+                // remove load more button
+                loadMoreButton.style.display = 'none';
+            }
             // upadte load more button text
             loadMoreButton.textContent = 'Show more rows (' + shownRows + '/' + (this.parsedContent.length) + ')';
+
+        }
+
+
+        loadMoreButton.addEventListener('click', () => {
+            loadMore(100000);
         }
         );
 
-        loadMoreButton.click();
+        loadMore(10);
+
 
 
         // tbody.appendChild(loadMoreButton);
@@ -175,11 +180,16 @@ class FileProcessor {
         divHeaderWrap.appendChild(h2);
         divHeaderWrap.appendChild(exportButton);
 
+        divHeaderWrap.style.marginTop = '1rem';
+        divHeaderWrap.style.marginBottom = '0.5rem';
+
 
         div.appendChild(divHeaderWrap);
         div.appendChild(table);
         loadMoreButton.classList.add('load-more-btn');
         div.appendChild(loadMoreButton);
+
+        div.classList.add('table-wrap');
 
         return div;
 
@@ -213,6 +223,13 @@ function main() {
     const fileInput = document.getElementById('fileInput');
 
     fileInput.addEventListener('change', async function() {
+
+        // activate process button when files are selected
+        document.getElementById('process-btn').disabled = false;
+
+        // add disabled class
+        document.getElementById('process-btn').classList.remove('disabled');
+
         // create list of file names and render it to the page
         const fileList = document.createElement('ul');
         for (let file of fileInput.files) {
@@ -220,6 +237,19 @@ function main() {
             li.textContent = file.name;
             fileList.appendChild(li);
         }
+        // clear toc
+        document.getElementById('toc').innerHTML = '';
+
+        // add header to toc
+        const tocHeader = document.createElement('h2');
+        tocHeader.textContent = 'Table of contents';
+        tocHeader.style.marginTop = '1rem';
+        tocHeader.style.marginBottom = '0.5rem';
+        tocHeader.style.rowHeight = '1.5rem';
+        fileList.style.marginTop = '0.25rem';
+        document.getElementById('toc').appendChild(tocHeader);
+        
+
         document.getElementById('toc').appendChild(fileList);
 
 
@@ -228,22 +258,48 @@ function main() {
 }
 
 async function processFiles() {
-    const fileInput = document.getElementById('fileInput');
-    for (let file of fileInput.files) {
-        const fileProcessor = new FileProcessor();
-        fileProcessor.setFile(file);
-        await fileProcessor.loadContent();
-        await fileProcessor.parseContent();
-        await fileProcessor.process();
 
-        const table = fileProcessor.renderAsHtmlTable();
+    setBusy(true);
 
-        document.body.appendChild(table);
+    try {
+        fileProcessors = [];
+        // remove all divs with class table-wrap
+        document.querySelectorAll('.table-wrap').forEach(div => {
+            div.remove();
+        });
+    
+        const fileInput = document.getElementById('fileInput');
+        for (let file of fileInput.files) {
+            const fileProcessor = new FileProcessor();
+            fileProcessor.setFile(file);
+            await fileProcessor.loadContent();
+            await fileProcessor.parseContent();
+            await fileProcessor.process();
+    
+            const table = fileProcessor.renderAsHtmlTable();
+    
+            document.body.appendChild(table);
+        }
+        generateToCFromHeadings();
+    
+        // disable process button
+        document.getElementById('process-btn').disabled = true;
+        document.getElementById('process-btn').classList.add('disabled');
+        setBusy(false);
+
+    } catch (err) {
+        console.error(err);
+        setBusy(false);
     }
-    generateToCFromHeadings();
+
+
 }
 
 function generateToCFromHeadings(){
+
+    // clear toc first
+    document.getElementById('toc').innerHTML = '';
+
     const headings = document.querySelectorAll('h2');
     const toc = document.createElement('ul');
     for (let heading of headings) {
@@ -257,7 +313,6 @@ function generateToCFromHeadings(){
 
     // clear toc first
     document.getElementById('toc').innerHTML = '';
-
     // add download all link to toc
     const downloadAll = document.createElement('a');
     const li = document.createElement('li');
@@ -271,6 +326,16 @@ function generateToCFromHeadings(){
     li.style.marginBottom = '2rem';
 
     toc.appendChild(li);
+
+    
+    const tocHeader = document.createElement('h2');
+    tocHeader.textContent = 'Table of contents';
+    tocHeader.style.marginTop = '1rem';
+    tocHeader.style.marginBottom = '0.5rem';
+    tocHeader.style.rowHeight = '1.5rem';
+    toc.style.marginTop = '0.25rem';
+    document.getElementById('toc').appendChild(tocHeader);
+
 
     document.getElementById('toc').appendChild(toc);
 }
@@ -290,5 +355,16 @@ function clearAll() {
     document.getElementById('toc').innerHTML = '';
 }
 
+function setBusy(busy) {
+    var ind = document.getElementById('busyIndicator');
+    if (busy) {
+        ind.classList.add('busyIndicator_Enable');
+        ind.classList.remove('busyIndicator_Disable');
+    } else {
+        ind.classList.remove('busyIndicator_Enable');
+        ind.classList.add('busyIndicator_Disable');
+        
+    }
+}
 
 main();
