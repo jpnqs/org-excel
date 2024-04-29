@@ -422,6 +422,18 @@ function rainbowMode() {
 
     nyancat();
 
+    // set button text color to white
+    const btns = document.querySelectorAll('button');
+    btns.forEach(btn => {
+        btn.style.color = 'white';
+    });
+
+    // make button borders invisible
+    const btns2 = document.querySelectorAll('button');
+    btns2.forEach(btn => {
+        btn.style.borderCollapse = 'rgba(0,0,0,0)';
+    });
+
     // hide rainbow button
     document.getElementById('rainbow-mode').style.display = 'none';
 
