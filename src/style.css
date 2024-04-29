@@ -5,6 +5,8 @@ html, body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+
 }
 
 /** fancy styling for the table */
@@ -15,7 +17,7 @@ table {
 
 /** and columns */
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid rgba(0, 0, 0, 0.15);
     padding: 8px;
     text-align: left;
 }
@@ -23,13 +25,13 @@ th, td {
 /** and rows */
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 /** and hover effect */
 
 tr:hover {
-    background-color: lightgray;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 /** and the button */
@@ -97,7 +99,7 @@ thead {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: #f1f1f1;
+    background-color: rgba(0, 0, 0, 0.1);;
 }
 
 /* make table header sticky */
@@ -105,7 +107,7 @@ thead {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: #f1f1f1;
+    background-color: rgba(0, 0, 0, 0.1);;
 }
 
 
@@ -116,6 +118,20 @@ h2 {
     line-height: 2rem;
     font-size: 1rem;
     margin-left: 1rem;
+}
+
+
+
+.usefull-buttons {
+    display: flex;
+    /* column */
+    flex-direction: row;
+    /* space between 1rem */
+    width: 20rem;
+}
+
+.usefull-buttons button {
+    width: 8rem;
 }
 
 /* export button */
@@ -207,10 +223,21 @@ h2 {
         left: 1rem;
     }
 
+    .container {
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        overflow: auto;
+    }
+
     .button-container {
         display: flex;
+        /* space between*/
+        justify-content: space-between;
         /* space between 1rem */
-        width: 20rem;
+        width: 100%;
         padding-top: 0.5rem;
         margin-left: 0.5rem;
     }
@@ -223,4 +250,67 @@ h2 {
     /* remove dotsfrom list */
     ul {
         list-style-type: none;
+    }
+
+
+
+
+
+    .rainbow { 
+        /* position: absolute; */
+      background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+      background-size: 1800% 1800%;
+      
+      -webkit-animation: rainbow 18s ease infinite;
+      -z-animation: rainbow 18s ease infinite;
+      -o-animation: rainbow 18s ease infinite;
+        animation: rainbow 18s ease infinite;}
+      
+      @-webkit-keyframes rainbow {
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+      @-moz-keyframes rainbow {
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+      @-o-keyframes rainbow {
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+      @keyframes rainbow { 
+          0%{background-position:0% 82%}
+          50%{background-position:100% 19%}
+          100%{background-position:0% 82%}
+      }
+
+      #nyancat {
+        top: 25%;
+        width: 50%;
+        position: absolute;
+        
+    }
+
+    /** format scrollbar with opacity to fit everything */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    #rainbow-mode {
+        margin-right: 1rem;
     }

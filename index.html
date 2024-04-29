@@ -4,13 +4,20 @@
 <head>
     <title>Organoid Data Processor</title>
     <link rel="stylesheet" type="text/css" href="src/style.css">
-
+ <!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib --> <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+ <script src="src/nyancat.js"></script>
 </head>
 <body>
+
+    <div id="particles-js"></div> <!-- stats - count particles --> 
+
+    <img src="https://raw.githubusercontent.com/gist/brudnak/aba00c9a1c92d226f68e8ad8ba1e0a40/raw/e1e4a92f6072d15014f19aa8903d24a1ac0c41a4/nyan-cat.gif" id="nyancat" style="display: none;">
+
     <div class="container">
         <!-- on click press fileInput click -->
         <div class="button-container">
 
+            <div class="usefull-buttons">
 
         <button class="upload-btn" onclick="pressFileInput()">
             Select Files
@@ -21,7 +28,13 @@
         >
         <div style="width: 0.5rem"></div>
         <button disabled  id="process-btn" class="process-btn disabled" type="submit" onclick="processFiles()" name="submit">Process</button>
+    </div>
+        
+        <div class="rainbow-btn-container">
+            <button id="rainbow-mode" class="process-btn rainbow" type="submit" onclick="rainbowMode()" name="submit">Rainbow Mode</button>
+    
         </div>
+    </div>
         <div id="toc">
 
             <div style="max-width: 30rem; margin-left: 1rem">
@@ -41,8 +54,6 @@
             <span class="loader"></span>
         </div>
     </div>
-
-
 
     <script src="src/main.js"></script>
 </body>

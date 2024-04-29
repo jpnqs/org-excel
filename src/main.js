@@ -1,4 +1,6 @@
 
+
+let rainbowModeAct = false;
 let fileProcessors = [];
 
 class FileProcessor {
@@ -278,7 +280,7 @@ async function processFiles() {
     
             const table = fileProcessor.renderAsHtmlTable();
     
-            document.body.appendChild(table);
+            document.getElementsByClassName('container')[0].appendChild(table);
         }
         generateToCFromHeadings();
     
@@ -286,6 +288,10 @@ async function processFiles() {
         document.getElementById('process-btn').disabled = true;
         document.getElementById('process-btn').classList.add('disabled');
         setBusy(false);
+
+        if (rainbowModeAct) {
+            rainbowMode();
+        }
 
     } catch (err) {
         console.error(err);
@@ -365,6 +371,60 @@ function setBusy(busy) {
         ind.classList.add('busyIndicator_Disable');
         
     }
+}
+
+function rainbowMode() {
+
+    rainbowModeAct = true;
+
+    // get all buttons and add rainbow class
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.classList.add('rainbow');
+    });
+
+    // set background colors for site and tables to #003165
+    document.body.style.backgroundColor = '#003165';
+
+    // set text color to white
+
+    document.body.style.color = 'white';
+
+    // set h2 color to white
+    const h2s = document.querySelectorAll('h2');
+    h2s.forEach(h2 => {
+        h2.style.color = 'white';
+    });
+
+    // set th color to white
+    const ths = document.querySelectorAll('th');
+    ths.forEach(th => {
+        th.style.color = 'white';
+    });
+
+    // set td color to white
+    const tds = document.querySelectorAll('td');
+    tds.forEach(td => {
+        td.style.color = 'white';
+    });
+
+    // set a color to white
+    const as = document.querySelectorAll('a');
+    as.forEach(a => {
+        a.style.color = 'white';
+    });
+
+    // set li color to white
+    const lis = document.querySelectorAll('li');
+    lis.forEach(li => {
+        li.style.color = 'white';
+    });
+
+    nyancat();
+
+    // hide rainbow button
+    document.getElementById('rainbow-mode').style.display = 'none';
+
 }
 
 main();
