@@ -29,7 +29,7 @@ tr:nth-child(even) {
 /** and hover effect */
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: lightgray;
 }
 
 /** and the button */
@@ -41,7 +41,19 @@ button {
     margin: 0px 0;
     border: none;
     cursor: pointer;
-    width: 100%;
+    border-radius: 5px;
+    /* width: 100%; */
+}
+
+button.disabled {
+    background-color: #cccccc;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 0;
+    border: none;
+    cursor: not-allowed;
+    border-radius: 5px;
+    /* width: 100%; */
 }
 
 button:hover {
@@ -136,9 +148,79 @@ h2 {
     border: none;
     cursor: pointer;
     width: 100%;
-
+    /* border bottom like table */
+    border-bottom: 1px solid #ddd;
 }
 
 .load-more-btn:hover {
-    opacity: 0.8;
+    background-color: #f2f2f2;
 }
+
+.busyIndicator {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 1;
+    top: 0;
+}
+
+.busyIndicator_Enable {
+    display: flex;
+}
+
+.busyIndicator_Disable {
+    display: none;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #4CAF50;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+
+    .upload-btn {
+        width: auto;
+
+    }
+
+    .process-btn {
+        width: auto;
+        left: 1rem;
+    }
+
+    .button-container {
+        display: flex;
+        /* space between 1rem */
+        width: 20rem;
+        padding-top: 0.5rem;
+        margin-left: 0.5rem;
+    }
+
+    /* table cursor */
+    table {
+        cursor: cell;
+    }
+
+    /* remove dotsfrom list */
+    ul {
+        list-style-type: none;
+    }
