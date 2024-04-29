@@ -230,6 +230,7 @@ h2 {
         width: 100%;
         position: absolute;
         overflow: auto;
+        overflow-x: hidden;
     }
 
     .button-container {
