@@ -431,7 +431,9 @@ function rainbowMode() {
     // make button borders invisible
     const btns2 = document.querySelectorAll('button');
     btns2.forEach(btn => {
-        btn.style.borderCollapse = 'rgba(0,0,0,0)';
+        btn.style.borderColor = 'rgba(0,0,0,0)';
+        btn.style.borderColorBottom = 'rgba(0,0,0,0)';
+        
     });
 
     // hide rainbow button
