@@ -1,10 +1,12 @@
 
+let fileProcessors = [];
 
 class FileProcessor {
     constructor() {
         this.file = null;
         this.content = null;
         this.parsedContent = null;
+        fileProcessors.push(this);
     }
 
     setFile(file) {
@@ -211,7 +213,6 @@ function main() {
     const fileInput = document.getElementById('fileInput');
 
     fileInput.addEventListener('change', async function() {
-        
         // create list of file names and render it to the page
         const fileList = document.createElement('ul');
         for (let file of fileInput.files) {
@@ -256,11 +257,38 @@ function generateToCFromHeadings(){
 
     // clear toc first
     document.getElementById('toc').innerHTML = '';
+
+    // add download all link to toc
+    const downloadAll = document.createElement('a');
+    const li = document.createElement('li');
+
+    downloadAll.textContent = 'Export all (Downloads all tables as csv)';
+    downloadAll.href = '#';
+    downloadAll.addEventListener('click', exportAll);
+    li.appendChild(downloadAll);
+
+    li.style.marginTop = '1rem';
+    li.style.marginBottom = '2rem';
+
+    toc.appendChild(li);
+
     document.getElementById('toc').appendChild(toc);
 }
 
 function pressFileInput() {
     document.getElementById('fileInput').click();
 }
+
+function exportAll() {
+    fileProcessors.forEach(fileProcessor => {
+        fileProcessor.exportAsCsv();
+    });
+}
+
+function clearAll() {
+    document.body.innerHTML = '';
+    document.getElementById('toc').innerHTML = '';
+}
+
 
 main();
