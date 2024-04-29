@@ -1,0 +1,24 @@
+<!-- website with an file selection for multiple files and a process button -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+    <link rel="stylesheet" type="text/css" href="src/style.css">
+
+</head>
+<body>
+    <div class="container">
+        <!-- on click press fileInput click -->
+        <button class="upload-btn" onclick="pressFileInput()">
+            Select Files
+        </button>
+        <!-- allow only csv data -->
+        <input id="fileInput" type="file" name="files[]" multiple
+            accept=".csv" style="display: none;"/
+        >
+        <button type="submit" onclick="processFiles()" name="submit">Process</button>
+        <div id="toc"></div>
+    </div>
+    <script src="src/main.js"></script>
+</body>
+</html>

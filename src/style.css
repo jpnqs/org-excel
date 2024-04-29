@@ -1,0 +1,144 @@
+
+
+/* global arial */
+html, body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/** fancy styling for the table */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/** and columns */
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/** and rows */
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/** and hover effect */
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/** and the button */
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* style uplaod input */
+input[type="file"] {
+    display: none;
+}
+
+/* style uplaod button */
+.upload-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/** and the form */
+
+form {
+    border: 3px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+/* make table header sticky */
+thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+}
+
+/* make table header sticky */
+thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #f1f1f1;
+}
+
+
+/* h2 width only like the text */
+h2 {
+    display: inline;
+    margin:0;
+    line-height: 2rem;
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+/* export button */
+.export-btn {
+    background-color: #4CAF50;
+    color: white;
+    /* padding: 14px 20px; */
+    padding: 0 0;
+    margin: 0px 0;
+    border: none;
+    cursor: pointer;
+    width: 5rem;
+    /** same size text size as h2 */
+    line-height: 2rem;
+    font-size: 1rem;
+    /* float: right; */
+    display: inline;
+    top: 0rem;    
+    margin-right: 1rem;
+    margin-left: 1rem;
+
+}
+
+/** load more btn gray */
+.load-more-btn {
+    background-color: #fafafa;
+    color: rgb(94, 94, 94);
+    padding: 14px 20px;
+    margin: 0px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+
+}
+
+.load-more-btn:hover {
+    opacity: 0.8;
+}
