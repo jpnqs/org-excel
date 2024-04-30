@@ -172,10 +172,11 @@ class FileProcessor {
 
         // add export button to heading
         var exportButton = document.createElement('button');
-        exportButton.textContent = 'Export';
+        exportButton.innerHTML = '<span class="material-symbols-outlined">download</span>Export';
         exportButton.addEventListener('click', () => {
             this.exportAsCsv();
         });
+        exportButton.style.width = '7rem';
 
         exportButton.classList.add('export-btn');
 
@@ -218,8 +219,43 @@ class FileProcessor {
 
 }
 
+// function that goes through the steps and set the next to present every second
+let stepInterval = null;
+function goThroughSteps() {
+    // get all steps
+    stepInterval = setInterval(() => {
+        var stepList = document.getElementById('stepList')
+        var steps = document.getElementsByTagName('li', stepList)
+        var activeIndex = 0;
+
+        for (let i = 0; i < steps.length; i++) {
+            if (steps[i].classList.contains('present')) {
+                activeIndex = i;
+                break;
+            }
+        }
+
+        activeIndex = (activeIndex + 1) % steps.length;
+
+        for (let i = 0; i < steps.length; i++) {
+            if (i === activeIndex) {
+                steps[i].classList.add('present');
+                steps[i].classList.remove('past')   
+            } else {
+                steps[i].classList.remove('present');
+                steps[i].classList.add('past');
+            }
+        }
+
+
+        // debugger;
+    }, 1500);
+
+}
 
 function main() {
+
+    // goThroughSteps();
 
     // get files from file input and read it
     const fileInput = document.getElementById('fileInput');
@@ -291,7 +327,10 @@ async function processFiles() {
 
         if (rainbowModeAct) {
             rainbowMode();
+        } else {
+            boringMode();
         }
+
 
     } catch (err) {
         console.error(err);
@@ -437,7 +476,94 @@ function rainbowMode() {
     });
 
     // hide rainbow button
-    document.getElementById('rainbow-mode').style.display = 'none';
+    document.getElementById('rainbow-mode').innerHTML = '<span class="material-symbols-outlined">hotel</span>Boring Mode';
+    document.getElementById('rainbow-mode').onclick = boringMode;
+
+    // make button style boring
+    document.getElementById('rainbow-mode').classList.remove('rainbow');
+    document.getElementById('rainbow-mode').classList.add('disabled');
+
+    document.getElementById('rainbow-mode').style.backgroundColor = '#002145';
+
+}
+
+function boringMode() {
+
+    stopnyancat();
+    rainbowModeAct = false;
+
+    // remove rainbow classes from all buttons
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(button => {
+        // except rainbow mode button
+        if (button.id !== 'rainbow-mode') {
+            button.classList.remove('rainbow');
+        }
+
+    });
+
+    // set background color to white
+    document.body.style.backgroundColor = 'white';
+
+    // set text color to black
+    document.body.style.color = 'black';
+
+    // set h2 color to black
+    const h2s = document.querySelectorAll('h2');
+
+    h2s.forEach(h2 => {
+        h2.style.color = 'black';
+    });
+
+    // set th color to black
+
+    const ths = document.querySelectorAll('th');
+
+    ths.forEach(th => {
+        th.style.color = 'black';
+    });
+
+    // set td color to black
+    const tds = document.querySelectorAll('td');
+
+    tds.forEach(td => {
+        td.style.color = 'black';
+    });
+
+    // set a color to black
+    const as = document.querySelectorAll('a');
+
+    as.forEach(a => {
+        a.style.color = 'black';
+    });
+
+    // set li color to black
+    const lis = document.querySelectorAll('li');
+
+    lis.forEach(li => {
+        li.style.color = 'black';
+    });
+
+    // hide nyan cat img
+    document.getElementById('nyancat').style.display = 'none';
+
+    // reset load more buttons
+    const loadMoreButtons = document.querySelectorAll('.load-more-btn');
+
+    loadMoreButtons.forEach(btn => {
+        btn.style.color = 'rgb(94, 94, 94)';
+        btn.style.borderBottom = '1px solid #ddd';
+    }
+    );
+
+    // set button back to rainbow mode
+    document.getElementById('rainbow-mode').innerHTML = '<span class="material-symbols-outlined">looks</span>Rainbow Mode';
+    document.getElementById('rainbow-mode').onclick = rainbowMode;
+
+    document.getElementById('rainbow-mode').classList.add('rainbow');
+    document.getElementById('rainbow-mode').classList.remove('disabled');
+    
 
 }
 

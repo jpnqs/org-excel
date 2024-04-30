@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Organoid Data Processor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="src/style.css">
  <!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> <script src="src/particle.js"></script> 
  <script src="src/nyancat.js"></script>
@@ -20,30 +21,36 @@
             <div class="usefull-buttons">
 
         <button class="upload-btn" onclick="pressFileInput()">
-            Select Files
+            <span class="material-symbols-outlined">
+                folder_open
+                </span> Select Files
         </button>
         <!-- allow only csv data -->
         <input id="fileInput" type="file" name="files[]" multiple
             accept=".csv" style="display: none;"/
         >
         <div style="width: 0.5rem"></div>
-        <button disabled  id="process-btn" class="process-btn disabled" type="submit" onclick="processFiles()" name="submit">Process</button>
+        <button disabled  id="process-btn" class="process-btn disabled" type="submit" onclick="processFiles()" name="submit"><span class="material-symbols-outlined">
+            analytics
+            </span>Process</button>
     </div>
         
         <div class="rainbow-btn-container">
-            <button id="rainbow-mode" class="process-btn rainbow" type="submit" onclick="rainbowMode()" name="submit">Rainbow Mode</button>
+            <button id="rainbow-mode" class="process-btn rainbow" type="submit" onclick="rainbowMode()" name="submit"><span class="material-symbols-outlined">looks</span>Rainbow Mode</button>
     
         </div>
     </div>
         <div id="toc">
 
-            <div style="max-width: 30rem; margin-left: 1rem">
+            <div style="max-width: 50rem; margin-left: 1rem">
             <p><strong>How To Use?</strong></p>
             <p>
                 Just click on "Select Files" and select the files you want to process.
                 Then click on "Process" and wait for the files to be processed.
                 Then you can view and download the processed files.
             </p>
+
+
         </div>
 
         </div>

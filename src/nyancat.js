@@ -1,11 +1,25 @@
 
 
+var nyancatsstarted = false;
+
 function nyancat() {
 
     // activate nyancat gif
     var nyancat = document.getElementById('nyancat');
     nyancat.style.display = 'block';
+
+    // only do it when not already done
+    if (document.getElementById('particles-js')) {
+        // show particles
+        document.getElementById('particles-js').style.display = 'block';
     
+    }
+
+    if (nyancatsstarted) {
+        return;
+    }
+
+
 
     particlesJS("particles-js", {
         "particles": {
@@ -45,12 +59,12 @@ function nyancat() {
                 }
             },
             "size": {
-                "value": 4,
+                "value": 6,
                 "random": true,
                 "anim": {
                     "enable": false,
                     "speed": 40,
-                    "size_min": 0.1,
+                    "size_min": 1,
                     "sync": false
                 }
             },
@@ -117,10 +131,19 @@ function nyancat() {
         },
         "retina_detect": true
     });
+
+    nyancatsstarted = true;
+
     var count_particles, stats, update;
     update = function() {
 
         requestAnimationFrame(update);
     };
     requestAnimationFrame(update);;
+}
+
+function stopnyancat() {
+    var nyancat = document.getElementById('nyancat');
+    nyancat.style.display = 'none';
+    document.getElementById('particles-js').style.display = 'none';
 }
