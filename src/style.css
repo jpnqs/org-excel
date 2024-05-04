@@ -413,3 +413,21 @@ h2 {
           border-bottom-color: rgba(0,0,0,0);
         }
       }
+
+      
+.gif-toast-img {
+    height:10rem;
+  }
+  
+  .gif-toast-wrapper {
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+    transition: 1.5s;
+    bottom: 1.5rem;
+  }
+  
+  .gif-toast-wrapper-hide {
+    bottom: -12rem;
+  }
+  
