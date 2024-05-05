@@ -431,3 +431,21 @@ h2 {
     bottom: -12rem;
   }
   
+  .tetris-toast-wrapper {
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+    transition: 1.5s;
+    bottom: 1.5rem;
+}
+
+  .tetris-toast-wrapper-hide {
+    bottom: -100vh;
+  }
+
+
+    .tetris-toast-img {
+        height:25vh;
+        /* border*/
+        border: 1px solid #ddd;
+    }

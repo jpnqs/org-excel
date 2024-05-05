@@ -36,6 +36,31 @@ function showKissi() {
   }, 3500);
 }
 
+var tetris = null;
+function showTetris() {
+  alert('Arrow keys to move, space to rotate');
+
+  // remove tetris hide class from tetris-toast
+  document.getElementById('tetris-toast').classList.remove('tetris-toast-wrapper-hide');
+
+  tetris = new Tetris();
+
+tetris.startStep();
+
+
+}
+
+function hideTetris() {
+  if (!tetris) {
+    return;
+  }
+  // add tetris hide class from tetris-toast
+  document.getElementById('tetris-toast').classList.add('tetris-toast-wrapper-hide');
+  // stoop game
+
+  tetris.stopStep();
+  tetris = null;
+}
 
 function Code() {
 
@@ -46,6 +71,13 @@ function Code() {
     var sequence = '';
     
     window.addEventListener('keydown', (ev) => {
+
+      // on escape
+      if (ev.key === 'Escape') {
+        hideTetris();
+        sequence = '';
+        return;
+      }
   
       if (ev.key.length > 1) {
         return;
@@ -109,7 +141,7 @@ function Code() {
   
   c.on('TETRISPLS', () => {
     // alert tetris controls, arrow keys, space
-    alert('Arrow keys to move, space to rotate');
+    showTetris();
   });
 
   c.on('KISSI', () => {

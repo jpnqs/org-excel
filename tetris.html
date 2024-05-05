@@ -7,6 +7,24 @@
 </head>
 <body>
     <canvas id="tetris"></canvas>
+    <div id="debug"></div>
+    <style>
+        #debug {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: white;
+            font-size: 2rem;
+            background-color: black;
+            padding: 0.5rem;
+            /* monospace */
+            font-family: 'Courier New', Courier, monospace;
+        }
+        /* tetris canvas border*/
+        #tetris {
+            border: 1px solid black;
+        }
+    </style>
     <script src="src/tetris/tetris.js"></script>
 </body>
 </html>
