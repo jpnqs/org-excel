@@ -130,7 +130,7 @@ function Code() {
     }.bind(this);
    
     this.generateHelp = function() {
-      return 'This are the secret modes you can activate when you type it on your keyboard ❤\n\n' + Object.keys(listeners).map(el => '- ' + el).join('\n');
+      return 'This are the secret modes you can activate when you type it on your keyboard ❤\n\n' + Object.keys(listeners).map(el => '- ' + el).join('\n') + '\n\nEnjoy!\nPS: You can stop games by pressing ESC'; 
     }.bind(this);
 
     return this;

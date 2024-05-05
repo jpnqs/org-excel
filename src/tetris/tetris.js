@@ -459,8 +459,11 @@ class Tetris {
 
   stopStep() {
     clearTimeout(this.timeout);
+    // remove lsiteners
+    document.removeEventListener('keydown');
+    
   }
-  
+
 
   newShape() {
     this.tetromino = new Tetromino(this.grid)
