@@ -462,10 +462,16 @@ function pressFileInput() {
     document.getElementById('fileInput').click();
 }
 
-function exportAll() {
-    fileProcessors.forEach(fileProcessor => {
-        fileProcessor.export();
-    });
+async function exportAll() {
+
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    for (let i = 0; i < fileProcessors.length; i++) {
+        fileProcessors[i].export();
+        await wait(200);
+    }
 }
 
 function clearAll() {
