@@ -36,6 +36,22 @@ function showKissi() {
   }, 3500);
 }
 
+function showSteve() {
+  
+  if (showInProgress) {
+    return;
+  }
+  document.getElementById('gif-img').src = 'icon.png'
+  showInProgress = true;
+  toggle();
+  setTimeout(() => {
+    toggle();
+    setTimeout(() => {
+      showInProgress = false;
+    }, 1000);
+  }, 3500);
+}
+
 var tetris = null;
 function showTetris() {
   alert('Arrow keys to move, space to rotate');
@@ -147,6 +163,11 @@ function Code() {
   c.on('KISSI', () => {
     showKissi();
   });
+
+  
+c.on('STEVE', () => {
+  showSteve();
+});
 
   c.on('HELP', () => {
     alert(c.generateHelp());

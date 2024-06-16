@@ -4,7 +4,7 @@ let rainbowModeAct = false;
 let fileProcessors = [];
 
 const tocTitle = `<strong title="Link to all processed tables on this site, just click on a file name 😊" class="tocTitleColor" style="margin-top: 1rem;font-size: 2rem; vertical-align: sub;">Table of contents</strong>
-                    <img src="icon.png" style="vertical-align: bottom; height:3rem">`;
+                    <img title="Steve" src="icon.png" style="vertical-align: bottom; height:3rem">`;
 
 class FileProcessor {
     constructor() {
