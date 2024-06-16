@@ -3,6 +3,9 @@
 let rainbowModeAct = false;
 let fileProcessors = [];
 
+const tocTitle = `<strong title="Link to all processed tables on this site, just click on a file name 😊" class="tocTitleColor" style="margin-top: 1rem;font-size: 2rem; vertical-align: sub;">Table of contents</strong>
+                    <img src="icon.png" style="vertical-align: bottom; height:3rem">`;
+
 class FileProcessor {
     constructor() {
         this.file = null;
@@ -42,6 +45,7 @@ class FileProcessor {
         }
 
         this.parsedContent = data;
+        this.originalContent = JSON.parse(JSON.stringify(data.filter(obj => obj['D1[um]'] !== undefined && obj['D2[um]'] !== undefined)));
     }
 
     process() {
@@ -174,7 +178,7 @@ class FileProcessor {
         var exportButton = document.createElement('button');
         exportButton.innerHTML = '<span class="material-symbols-outlined">download</span>Export';
         exportButton.addEventListener('click', () => {
-            this.exportAsCsv();
+            this.export();
         });
         exportButton.style.width = '7rem';
 
@@ -198,6 +202,16 @@ class FileProcessor {
 
     }
 
+    export() {
+        let fileType = getFileType();
+
+        if (fileType === '.csv') {
+            this.exportAsCsv();
+        } else if (fileType === '.xlsx') {
+            this.exportAsExcel();
+        }
+    }
+
     exportAsCsv() {
         const headers = Object.keys(this.parsedContent[0]);
         const csv = [headers.join(';')];
@@ -214,6 +228,63 @@ class FileProcessor {
         a.download = this.getFileName().replace('.csv', '_processed.csv');
         a.click();
         URL.revokeObjectURL(url);
+    }
+
+    exportAsExcel() {
+        const headers = Object.keys(this.parsedContent[0]);
+        const data = [headers];
+        this.parsedContent.forEach(obj => {
+            const row = headers.map(header => obj[header]);
+            data.push(row);
+        });
+
+        // set datatypes for excel columns
+        const types = data[1].map(() => 's');
+        types[0] = 's';
+
+
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+
+
+        XLSX.utils.book_append_sheet(wb, ws, 'Bearbeitet');
+
+        // set data type to string for every column
+        // ws['!cols'] = types.map(type => ({ t: type }));
+        for (let k in ws) {
+            let c = ws[k];
+            if (c.t) {
+                c.t = 's';
+            }
+        }
+
+
+
+        // add old sheet to excel file as new book originalContent
+        const headers2 = Object.keys(this.originalContent[0]);
+        const data2 = [headers2];
+        this.originalContent.forEach(obj => {
+            const row = headers2.map(header => obj[header]);
+            data2.push(row);
+        }
+        );
+
+        const ws2 = XLSX.utils.aoa_to_sheet(data2);
+        XLSX.utils.book_append_sheet(wb, ws2, 'Original');
+        for (let k in ws2) {
+            let c = ws2[k];
+            if (c.t) {
+                c.t = 's';
+            }
+        }
+
+        // set col width for all columns
+        ws['!cols'] = headers.map(() => ({ wch: 16 }));
+        ws2['!cols'] = headers2.map(() => ({ wch: 16 }));
+
+
+        XLSX.writeFile(wb, this.getFileName().replace('.csv', '_processed.xlsx'));
+    
     }
 
 
@@ -247,8 +318,6 @@ function goThroughSteps() {
             }
         }
 
-
-        // debugger;
     }, 1500);
 
 }
@@ -280,7 +349,7 @@ function main() {
 
         // add header to toc
         const tocHeader = document.createElement('h2');
-        tocHeader.textContent = 'Table of contents';
+        tocHeader.innerHTML = tocTitle;
         tocHeader.style.marginTop = '1rem';
         tocHeader.style.marginBottom = '0.5rem';
         tocHeader.style.rowHeight = '1.5rem';
@@ -362,9 +431,13 @@ function generateToCFromHeadings(){
     const downloadAll = document.createElement('a');
     const li = document.createElement('li');
 
-    downloadAll.textContent = 'Export all (Downloads all tables as csv)';
+    downloadAll.innerHTML = `<span class="material-symbols-outlined" style="font-weight: bold">
+download
+</span>
+    <span style="text-decoration: none; font-weight: bold;" title="Downloads all tables as csv or excel file - can be changed via the selection at the top of the page">Export all</span>`;
     downloadAll.href = '#';
     downloadAll.addEventListener('click', exportAll);
+    downloadAll.style.textDecoration = 'none';
     li.appendChild(downloadAll);
 
     li.style.marginTop = '1rem';
@@ -374,7 +447,7 @@ function generateToCFromHeadings(){
 
     
     const tocHeader = document.createElement('h2');
-    tocHeader.textContent = 'Table of contents';
+    tocHeader.innerHTML = tocTitle;
     tocHeader.style.marginTop = '1rem';
     tocHeader.style.marginBottom = '0.5rem';
     tocHeader.style.rowHeight = '1.5rem';
@@ -391,7 +464,7 @@ function pressFileInput() {
 
 function exportAll() {
     fileProcessors.forEach(fileProcessor => {
-        fileProcessor.exportAsCsv();
+        fileProcessor.export();
     });
 }
 
@@ -564,7 +637,11 @@ function boringMode() {
     document.getElementById('rainbow-mode').classList.add('rainbow');
     document.getElementById('rainbow-mode').classList.remove('disabled');
     
+}
 
+function getFileType() {
+    var ft = document.getElementById('file-type')
+    return ft.value;
 }
 
 main();
