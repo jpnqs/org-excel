@@ -73,7 +73,6 @@ class FileProcessor {
             obj['Max[D1/D2]'] = Math.max(this.parseNumberValue(obj['D1[um]']), this.parseNumberValue(obj['D2[um]']));
         });
 
-        console.log('Max created:', this.parsedContent);
     }
 
     parseNumberValue(value) {
@@ -247,7 +246,7 @@ class FileProcessor {
         const wb = XLSX.utils.book_new();
 
 
-        XLSX.utils.book_append_sheet(wb, ws, 'Bearbeitet');
+        XLSX.utils.book_append_sheet(wb, ws, 'Processed');
 
         // set data type to string for every column
         // ws['!cols'] = types.map(type => ({ t: type }));
@@ -337,6 +336,12 @@ function main() {
         // add disabled class
         document.getElementById('process-btn').classList.remove('disabled');
 
+        var processBtnInline = document.getElementById('process-btn-inline');
+        if (processBtnInline) {
+            processBtnInline.disabled = false;
+            processBtnInline.classList.remove('disabled');
+        }
+
         // create list of file names and render it to the page
         const fileList = document.createElement('ul');
         for (let file of fileInput.files) {
@@ -392,12 +397,19 @@ async function processFiles() {
         // disable process button
         document.getElementById('process-btn').disabled = true;
         document.getElementById('process-btn').classList.add('disabled');
+                var processBtnInline = document.getElementById('process-btn-inline');
+        if (processBtnInline) {
+            processBtnInline.disabled = true;
+            processBtnInline.classList.add('disabled');
+        }
         setBusy(false);
 
         if (rainbowModeAct) {
             rainbowMode();
+
         } else {
             boringMode();
+            
         }
 
 
@@ -494,6 +506,7 @@ function setBusy(busy) {
 function rainbowMode() {
 
     rainbowModeAct = true;
+    saveRainbowMode();
 
     // get all buttons and add rainbow class
     const buttons = document.querySelectorAll('button');
@@ -570,6 +583,8 @@ function boringMode() {
 
     stopnyancat();
     rainbowModeAct = false;
+
+    saveRainbowMode();
 
     // remove rainbow classes from all buttons
     const buttons = document.querySelectorAll('button');
@@ -651,3 +666,57 @@ function getFileType() {
 }
 
 main();
+
+
+window.firstTime = true;
+
+window.onfocus = () => {
+    if (window.firstTime) {
+        window.firstTime = false;
+        document.title = 'Steve: I\'m your little Organoid Data Processor 😊';
+        
+    } else {
+        document.title = 'Steve: Welcome back! 😊';
+        setTimeout(() => {
+            document.title = 'Steve: I\'m your little Organoid Data Processor 😊';
+        }, 2000);
+
+    }
+};
+
+window.onblur = () => {
+    let titles = ['Steve: Hey, come back 🥺', 'Steve: Where did you go? 😢', 'Steve: I miss you 😭', 'Steve: I\'m lonely 😞', 'Steve: I\'m waiting for you 😔'];
+    document.title = titles[Math.floor(Math.random() * titles.length)];
+};
+
+window.onfocus();
+
+function doesUserPreferDarkMode() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+function saveRainbowMode() {
+    localStorage.setItem('rainbowMode', rainbowModeAct);
+}
+
+function loadRainbowMode() {
+    if (localStorage.getItem('rainbowMode') === 'true') {
+        rainbowMode();
+    }
+}
+
+function setFileType() {
+    localStorage.setItem('fileType', getFileType());
+}
+
+function loadFileType() {
+    if (localStorage.getItem('fileType')) {
+        document.getElementById('file-type').value = localStorage.getItem('fileType');
+    }
+}
+
+// on change setFileType
+document.getElementById('file-type').addEventListener('change', setFileType);
+
+loadRainbowMode();
+loadFileType();

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>S.T.E.V.E. - Organoid Data Processor</title>
+    <title>Steve - Little Organoid Data Processor</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="src/style.css">
     <script src="lib/xlsx.full.min.js" defer></script>
@@ -37,9 +37,10 @@
         <button disabled  id="process-btn" class="process-btn disabled" type="submit" onclick="processFiles()" name="submit"><span class="material-symbols-outlined">
             analytics
             </span>Process</button>
+
             <select title="File Type" name="file-type" id="file-type">
-                <option value=".xlsx">Output: Excel</option>
-  <option value=".csv">Output: CSV</option>
+                <option value=".xlsx">Excel (.xlsx)</option>
+  <option value=".csv">CSV (.csv)</option>
 </select>
 
     </div>
@@ -52,13 +53,16 @@
         <div id="toc">
 
             <div style="max-width: 50rem; margin-left: 1rem">
-            <p id="title-intro"><strong style="font-size: 2rem">How To Use?</strong><img title="Steve" src="icon.png" style="vertical-align: bottom;">
+            <p id="title-intro"><strong style="font-size: 2rem">Hello, I'm Steve!</strong><img title="Steve" src="icon.png" style="vertical-align: bottom;">
             <!-- <p> -->
                 <br>
                 <span>
-                    Just click on "Select Files" and select the files you want to process.
-                    Then click on "Process" and wait for the files to be processed.
-                    Then you can view and download the processed files.
+                    I'm here to help you process your data files.
+                    Just click on <button onclick="pressFileInput()">Select Files</button> and select the files you want to process.
+                    <br>Then click on <button id="process-btn-inline" onclick="processFiles()" class="disabled">Process</button> and wait for the files to be processed.
+                    Then you can view and download the processed files, yay!
+                    <br><br>
+                    Little insider hint, don't forget to check out the <button id="rainbow-mode-inline" onclick="rainbowMode()" class="rainbow">Rainbow Mode</button> or try something with the keyboard...
                 </span>
             <!-- </p> -->
 </p>

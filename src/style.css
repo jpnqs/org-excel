@@ -237,7 +237,7 @@ h2 {
     padding: 12px 20px;
     margin: 0px 0;
     display: inline-block;
-    border: 0px solid none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-color: rgba(0,0,0,0) !important;
     box-sizing: border-box;
     border-radius: 5px;
@@ -525,6 +525,23 @@ background-color: rgba(0,0,0,0.3);
         font-size: 1.5rem;
     }
 
+        #title-intro > span > button {
+        padding: 0.2rem 0.5rem;
+    }
+
+        #title-intro:hover > span > button {
+        font-size: 1.5rem;
+    }
+
+#title-intro > span > button > span {
+        font-size: 1rem;
+    }
+
+    #title-intro:hover > span > button > span {
+        font-size: 1.5rem;
+    }
+
+
     #title-intro > img {
         height: 2.5rem;
     }
@@ -533,3 +550,19 @@ background-color: rgba(0,0,0,0.3);
         height: 3.5rem;
     }
 
+
+
+    .material-symbols-outlined {
+        font-weight: bolder;
+    }
+
+    /* selector for dark mode */
+    /* media query for dark mode */
+
+    /* @media (prefers-color-scheme: dark) {
+        body {
+            background-color: #333;
+            color: #fff;
+        }
+    }
+     */
