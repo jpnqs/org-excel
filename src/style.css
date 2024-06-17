@@ -237,17 +237,17 @@ h2 {
     padding: 12px 20px;
     margin: 0px 0;
     display: inline-block;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-color: rgba(0,0,0,0) !important;
     box-sizing: border-box;
     border-radius: 5px;
     margin-left: 0.5rem;
+    transition: 0.3s !important;
+    cursor: pointer;
     font-family: 'Roboto', sans-serif;
-transition: 0.3s !important;
-cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-color: rgba(0,0,0,0) !important;
 background-color: rgba(0,0,0,0.2);
-border-color: none;
 color: #fff;
+/* border-color: none; */
 
     }
 
@@ -352,7 +352,14 @@ background-color: rgba(0,0,0,0.3);
     }
 
     .rainbow.disabled {
-        opacity: 0.7;
+        /* opacity: 0.7; */
+        background:none;
+            font-family: 'Roboto', sans-serif;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-color: rgba(0,0,0,0) !important;
+background-color: rgba(0,0,0,0.2) !important;
+color: #ddd;
+cursor: auto;
     }
 
     .material-symbols-outlined {
